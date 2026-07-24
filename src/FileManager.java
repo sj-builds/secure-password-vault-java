@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import model.Credential;
+import security.EncryptionUtil;
 
 public class FileManager {
 
