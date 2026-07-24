@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import model.Credential;
+
 public class PasswordVault {
 
     private static final Scanner scanner = new Scanner(System.in);

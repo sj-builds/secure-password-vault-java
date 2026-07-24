@@ -1,24 +1,37 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import model.Credential;
+
 public class FileManager {
 
-    private static final String FILE_NAME = "passwords.txt";
+    private static final String DATA_FOLDER = "data";
+    private static final String FILE_NAME = DATA_FOLDER + "/passwords.txt";
 
     public static void saveCredentials(ArrayList<Credential> credentials) {
+
+        File folder = new File(DATA_FOLDER);
+
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
 
             for (Credential credential : credentials) {
 
+                String encryptedPassword =
+                        EncryptionUtil.encrypt(credential.getPassword());
+
                 writer.write(
                         credential.getWebsite() + "," +
                         credential.getUsername() + "," +
-                        credential.getPassword()
+                        encryptedPassword
                 );
 
                 writer.newLine();
@@ -35,7 +48,13 @@ public class FileManager {
 
     public static void loadCredentials(PasswordManager manager) {
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+        File file = new File(FILE_NAME);
+
+        if (!file.exists()) {
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
             String line;
 
@@ -43,22 +62,27 @@ public class FileManager {
 
                 String[] data = line.split(",");
 
-                if (data.length == 3) {
-
-                    Credential credential = new Credential(
-                            data[0],
-                            data[1],
-                            data[2]
-                    );
-
-                    manager.addCredentialSilently(credential);
+                if (data.length != 3) {
+                    continue;
                 }
+
+                String decryptedPassword =
+                        EncryptionUtil.decrypt(data[2]);
+
+                Credential credential = new Credential(
+                        data[0],
+                        data[1],
+                        decryptedPassword
+                );
+
+                manager.addCredentialSilently(credential);
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
 
-            System.out.println("\nNo saved credentials found.");
+            System.out.println("\nUnable to load credentials.");
 
         }
     }
+
 }

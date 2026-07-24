@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import model.Credential;
+
 public class PasswordManager {
 
     private ArrayList<Credential> credentials;
