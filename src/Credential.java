@@ -1,43 +1,45 @@
 public class Credential {
 
-  private String website;
-  private String username;
-  private String password;
+    private String website;
+    private String username;
+    private String password;
 
-  public Credential(String website, String username, String password) {
-    this.website = website;
-    this.username = username;
-    this.password = password;
-  }
+    public Credential(String website, String username, String password) {
+        this.website = website;
+        this.username = username;
+        this.password = password;
+    }
 
-  public String getWebsite() {
-    return website;
-  }
-  
-  public void setWebsite(String website) {
-    this.website = website;
-  }
+    public String getWebsite() {
+        return website;
+    }
 
-  public String getUsername() {
-    return username;
-  }
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+    public String getUsername() {
+        return username;
+    }
 
-  public String getPassword() {
-    return password;
-  }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public String getPassword() {
+        return password;
+    }
 
-  @Override
-  public String toString() {
-    return "Website : " + website +
-           "\nUsername: " + username +
-           "\nPassword: " + password;
-  }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "=========================================\n" +
+               "Website : " + website + "\n" +
+               "Username: " + username + "\n" +
+               "Password: " + password + "\n" +
+               "=========================================";
+    }
 }

@@ -6,13 +6,16 @@ public class PasswordVault {
 
     Scanner scanner = new Scanner(System.in);
 
-    System.out.println("==========================================");
-    System.out.println("      SECURE PASSWORD VAULT");
-    System.out.println("==========================================");
+    PasswordManager manager = new PasswordManager();
 
-    System.out.println("Project Started Successfully!");
+    System.out.println("=================================================");
+    System.out.println("            SECURE PASSWORD VAULT");
+    System.out.println("=================================================");
 
-    scanner.close();
+    System.out.println("Welcome to Secure Password Vault!");
+    System.out.println("Project Started Successfully.");
     
+    scanner.close();
+
   }
 }
