@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 import model.Credential;
+import security.PasswordGenerator;
+import security.PasswordStrength;
 import service.PasswordManager;
 import storage.FileManager;
 

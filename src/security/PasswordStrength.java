@@ -1,9 +1,14 @@
-public class PasswordStrength {
+package security;
+
+public final class PasswordStrength {
+
+    private PasswordStrength() {
+    }
 
     public static String checkStrength(String password) {
 
         if (password == null || password.isEmpty()) {
-            return "Invalid Password";
+            return "Very Weak";
         }
 
         int score = 0;
@@ -24,21 +29,16 @@ public class PasswordStrength {
             score++;
         }
 
-        if (password.matches(".*[!@#$%&*()\\-_].*")) {
+        if (password.matches(".*[^A-Za-z0-9].*")) {
             score++;
         }
 
-        switch (score) {
-            case 5:
-                return "Very Strong";
-            case 4:
-                return "Strong";
-            case 3:
-                return "Medium";
-            case 2:
-                return "Weak";
-            default:
-                return "Very Weak";
-        }
+        return switch (score) {
+            case 5 -> "Very Strong";
+            case 4 -> "Strong";
+            case 3 -> "Medium";
+            case 2 -> "Weak";
+            default -> "Very Weak";
+        };
     }
 }
