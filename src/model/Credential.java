@@ -2,6 +2,7 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDateTime;
 
@@ -72,6 +73,7 @@ public class Credential {
         return updatedAt;
     }
 
+    @JsonIgnore
     public String getMaskedPassword() {
 
         if (password == null || password.isEmpty()) {

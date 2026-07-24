@@ -1,8 +1,10 @@
 package service;
 
 import model.Credential;
+import security.PasswordStrength;
 import storage.FileManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +17,21 @@ public class PasswordManager {
         FileManager.loadCredentials(this);
     }
 
-    public void addCredential(Credential credential) {
+    public boolean addCredential(Credential credential) {
 
         credentials.add(credential);
-        FileManager.saveCredentials(credentials);
 
-        System.out.println("\nCredential added successfully.");
+        try {
+
+            FileManager.saveCredentials(credentials);
+            return true;
+
+        } catch (IOException e) {
+
+            // Roll back
+            credentials.remove(credentials.size() - 1);
+            return false;
+        }
     }
 
     public void addCredentialSilently(Credential credential) {
@@ -60,10 +71,19 @@ public class PasswordManager {
             return false;
         }
 
+        String oldUsername = credential.getUsername();
         credential.setUsername(newUsername);
-        FileManager.saveCredentials(credentials);
 
-        return true;
+        try {
+
+            FileManager.saveCredentials(credentials);
+            return true;
+
+        } catch (IOException e) {
+
+            credential.setUsername(oldUsername);
+            return false;
+        }
     }
 
     public boolean updatePassword(String website, String newPassword) {
@@ -74,10 +94,19 @@ public class PasswordManager {
             return false;
         }
 
+        String oldPassword = credential.getPassword();
         credential.setPassword(newPassword);
-        FileManager.saveCredentials(credentials);
 
-        return true;
+        try {
+
+            FileManager.saveCredentials(credentials);
+            return true;
+
+        } catch (IOException e) {
+
+            credential.setPassword(oldPassword);
+            return false;
+        }
     }
 
     public boolean deleteCredential(String website) {
@@ -89,13 +118,20 @@ public class PasswordManager {
         }
 
         credentials.remove(credential);
-        FileManager.saveCredentials(credentials);
 
-        return true;
+        try {
+
+            FileManager.saveCredentials(credentials);
+            return true;
+
+        } catch (IOException e) {
+
+            credentials.add(credential);
+            return false;
+        }
     }
 
     public boolean credentialExists(String website) {
-
         return searchCredential(website) != null;
     }
 
@@ -113,11 +149,11 @@ public class PasswordManager {
 
         for (Credential credential : credentials) {
 
-            String strength = security.PasswordStrength.checkStrength(
+            String strength = PasswordStrength.checkStrength(
                     credential.getPassword());
 
-            if (!strength.equals("Strong") &&
-                    !strength.equals("Very Strong")) {
+            if (!strength.equals("Strong")
+                    && !strength.equals("Very Strong")) {
 
                 count++;
             }
@@ -132,11 +168,11 @@ public class PasswordManager {
 
         for (Credential credential : credentials) {
 
-            String strength = security.PasswordStrength.checkStrength(
+            String strength = PasswordStrength.checkStrength(
                     credential.getPassword());
 
-            if (strength.equals("Strong") ||
-                    strength.equals("Very Strong")) {
+            if (strength.equals("Strong")
+                    || strength.equals("Very Strong")) {
 
                 count++;
             }

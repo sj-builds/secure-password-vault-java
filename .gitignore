@@ -22,8 +22,7 @@ target/
 build/
 
 # Runtime data
-data/passwords.json
-data/secret.key
+data/
 
 # OS files
 .DS_Store

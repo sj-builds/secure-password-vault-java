@@ -3,6 +3,8 @@ package storage;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import model.Credential;
 import security.EncryptionUtil;
 import service.PasswordManager;
@@ -18,46 +20,37 @@ public final class FileManager {
     private static final String FILE_NAME = DATA_FOLDER + "/passwords.json";
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
-            .findAndRegisterModules()
-            .enable(SerializationFeature.INDENT_OUTPUT);
+        .registerModule(new JavaTimeModule())
+        .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+        .enable(SerializationFeature.INDENT_OUTPUT);
 
     private FileManager() {
         // Prevent instantiation
     }
 
-    public static void saveCredentials(List<Credential> credentials) {
+    public static void saveCredentials(List<Credential> credentials) throws IOException {
 
-        try {
+        File folder = new File(DATA_FOLDER);
 
-            File folder = new File(DATA_FOLDER);
-
-            if (!folder.exists()) {
-                folder.mkdirs();
-            }
-
-            List<Credential> encryptedCredentials = new ArrayList<>();
-
-            for (Credential credential : credentials) {
-
-                Credential encryptedCredential = new Credential(
-                        credential.getWebsite(),
-                        credential.getUsername(),
-                        EncryptionUtil.encrypt(credential.getPassword()),
-                        credential.getCreatedAt(),
-                        credential.getUpdatedAt());
-
-                encryptedCredentials.add(encryptedCredential);
-            }
-
-            OBJECT_MAPPER.writeValue(new File(FILE_NAME), encryptedCredentials);
-
-            System.out.println("\nCredentials saved successfully.");
-
-        } catch (IOException e) {
-
-            System.out.println("\nError saving credentials: " + e.getMessage());
-
+        if (!folder.exists()) {
+            folder.mkdirs();
         }
+
+        List<Credential> encryptedCredentials = new ArrayList<>();
+
+        for (Credential credential : credentials) {
+
+            Credential encryptedCredential = new Credential(
+                    credential.getWebsite(),
+                    credential.getUsername(),
+                    EncryptionUtil.encrypt(credential.getPassword()),
+                    credential.getCreatedAt(),
+                    credential.getUpdatedAt());
+
+            encryptedCredentials.add(encryptedCredential);
+        }
+
+        OBJECT_MAPPER.writeValue(new File(FILE_NAME), encryptedCredentials);
     }
 
     public static void loadCredentials(PasswordManager manager) {

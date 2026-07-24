@@ -122,12 +122,17 @@ public class PasswordVault {
             System.out.println("\nGenerated Password : " + password);
         }
 
-        manager.addCredential(
+        if (manager.addCredential(new Credential(
+                website,
+                username,
+                password))) {
 
-                new Credential(
-                        website,
-                        username,
-                        password));
+            System.out.println("\nCredential added successfully.");
+
+        } else {
+
+            System.out.println("\nFailed to save credential.");
+        }
     }
 
     private static void searchCredential() {
@@ -153,52 +158,69 @@ public class PasswordVault {
     private static void updateUsername() {
 
         System.out.print("Website : ");
-        String website = scanner.nextLine();
+        String website = scanner.nextLine().trim();
+
+        if (!manager.credentialExists(website)) {
+
+            System.out.println("\nCredential not found.");
+            return;
+        }
 
         System.out.print("New Username : ");
-        String username = scanner.nextLine();
+        String username = scanner.nextLine().trim();
 
         if (manager.updateUsername(website, username)) {
 
-            System.out.println("\nUsername updated.");
+            System.out.println("\nUsername updated successfully.");
 
         } else {
 
-            System.out.println("\nCredential not found.");
+            System.out.println("\nFailed to save changes.");
         }
     }
 
     private static void updatePassword() {
 
         System.out.print("Website : ");
-        String website = scanner.nextLine();
+        String website = scanner.nextLine().trim();
+
+        if (!manager.credentialExists(website)) {
+
+            System.out.println("\nCredential not found.");
+            return;
+        }
 
         System.out.print("New Password : ");
         String password = scanner.nextLine();
 
         if (manager.updatePassword(website, password)) {
 
-            System.out.println("\nPassword updated.");
+            System.out.println("\nPassword updated successfully.");
 
         } else {
 
-            System.out.println("\nCredential not found.");
+            System.out.println("\nFailed to save changes.");
         }
     }
 
     private static void deleteCredential() {
 
         System.out.print("Website : ");
+        String website = scanner.nextLine().trim();
 
-        String website = scanner.nextLine();
+        if (!manager.credentialExists(website)) {
+
+            System.out.println("\nCredential not found.");
+            return;
+        }
 
         if (manager.deleteCredential(website)) {
 
-            System.out.println("\nCredential deleted.");
+            System.out.println("\nCredential deleted successfully.");
 
         } else {
 
-            System.out.println("\nCredential not found.");
+            System.out.println("\nFailed to delete credential.");
         }
     }
 
