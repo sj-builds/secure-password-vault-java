@@ -23,8 +23,7 @@ public final class EncryptionUtil {
             cipher.init(Cipher.ENCRYPT_MODE, SECRET_KEY);
 
             byte[] encryptedBytes = cipher.doFinal(
-                    plainText.getBytes(StandardCharsets.UTF_8)
-            );
+                    plainText.getBytes(StandardCharsets.UTF_8));
 
             return Base64.getEncoder().encodeToString(encryptedBytes);
 

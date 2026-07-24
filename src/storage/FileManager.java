@@ -44,8 +44,7 @@ public final class FileManager {
                         credential.getUsername(),
                         EncryptionUtil.encrypt(credential.getPassword()),
                         credential.getCreatedAt(),
-                        credential.getUpdatedAt()
-                );
+                        credential.getUpdatedAt());
 
                 encryptedCredentials.add(encryptedCredential);
             }
@@ -73,8 +72,8 @@ public final class FileManager {
 
             List<Credential> credentials = OBJECT_MAPPER.readValue(
                     file,
-                    new TypeReference<List<Credential>>() {}
-            );
+                    new TypeReference<List<Credential>>() {
+                    });
 
             for (Credential credential : credentials) {
 
@@ -83,8 +82,7 @@ public final class FileManager {
                         credential.getUsername(),
                         EncryptionUtil.decrypt(credential.getPassword()),
                         credential.getCreatedAt(),
-                        credential.getUpdatedAt()
-                );
+                        credential.getUpdatedAt());
 
                 manager.addCredentialSilently(decryptedCredential);
             }

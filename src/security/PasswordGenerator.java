@@ -9,8 +9,7 @@ public final class PasswordGenerator {
     private static final String NUMBERS = "0123456789";
     private static final String SYMBOLS = "!@#$%&*()-_";
 
-    private static final String ALL_CHARACTERS =
-            UPPERCASE +
+    private static final String ALL_CHARACTERS = UPPERCASE +
             LOWERCASE +
             NUMBERS +
             SYMBOLS;
@@ -25,8 +24,7 @@ public final class PasswordGenerator {
 
         if (length < 8) {
             throw new IllegalArgumentException(
-                    "Password length must be at least 8 characters."
-            );
+                    "Password length must be at least 8 characters.");
         }
 
         StringBuilder password = new StringBuilder(length);
@@ -46,8 +44,7 @@ public final class PasswordGenerator {
     private static char randomCharacter(String characters) {
 
         return characters.charAt(
-                RANDOM.nextInt(characters.length())
-        );
+                RANDOM.nextInt(characters.length()));
     }
 
     private static String shuffle(String password) {

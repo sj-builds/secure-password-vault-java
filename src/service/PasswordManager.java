@@ -114,11 +114,10 @@ public class PasswordManager {
         for (Credential credential : credentials) {
 
             String strength = security.PasswordStrength.checkStrength(
-                    credential.getPassword()
-            );
+                    credential.getPassword());
 
             if (!strength.equals("Strong") &&
-                !strength.equals("Very Strong")) {
+                    !strength.equals("Very Strong")) {
 
                 count++;
             }
@@ -134,11 +133,10 @@ public class PasswordManager {
         for (Credential credential : credentials) {
 
             String strength = security.PasswordStrength.checkStrength(
-                    credential.getPassword()
-            );
+                    credential.getPassword());
 
             if (strength.equals("Strong") ||
-                strength.equals("Very Strong")) {
+                    strength.equals("Very Strong")) {
 
                 count++;
             }

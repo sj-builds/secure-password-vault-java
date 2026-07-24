@@ -34,8 +34,7 @@ public class Credential {
                 username,
                 password,
                 LocalDateTime.now(),
-                LocalDateTime.now()
-        );
+                LocalDateTime.now());
     }
 
     public String getWebsite() {
@@ -102,7 +101,6 @@ public class Credential {
                 username,
                 getMaskedPassword(),
                 createdAt,
-                updatedAt
-        );
+                updatedAt);
     }
 }

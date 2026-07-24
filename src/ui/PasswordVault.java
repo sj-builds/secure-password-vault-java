@@ -19,7 +19,7 @@ public class PasswordVault {
             printDashboard();
 
             System.out.println("""
-                    
+
                     1. Add Credential
                     2. View Credentials
                     3. Search Credential
@@ -84,7 +84,7 @@ public class PasswordVault {
     private static void printDashboard() {
 
         System.out.println("""
-                
+
                 =============================================
                       SECURE PASSWORD VAULT
                 =============================================
@@ -127,9 +127,7 @@ public class PasswordVault {
                 new Credential(
                         website,
                         username,
-                        password
-                )
-        );
+                        password));
     }
 
     private static void searchCredential() {
@@ -242,7 +240,6 @@ public class PasswordVault {
 
         System.out.println(
                 "\nPassword Strength : "
-                        + PasswordStrength.checkStrength(password)
-        );
+                        + PasswordStrength.checkStrength(password));
     }
 }
