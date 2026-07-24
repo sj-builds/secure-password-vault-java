@@ -51,7 +51,7 @@ public class FileManager {
                             data[2]
                     );
 
-                    manager.addCredential(credential);
+                    manager.addCredentialSilently(credential);
                 }
             }
 

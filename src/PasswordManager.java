@@ -8,13 +8,16 @@ public class PasswordManager {
         credentials = new ArrayList<>();
     }
 
-    // Add a new credential
     public void addCredential(Credential credential) {
         credentials.add(credential);
         System.out.println("\nCredential added successfully!");
     }
 
-    // View all credentials
+    // Used while loading from file
+    public void addCredentialSilently(Credential credential) {
+        credentials.add(credential);
+    }
+
     public void viewCredentials() {
 
         if (credentials.isEmpty()) {
@@ -22,14 +25,18 @@ public class PasswordManager {
             return;
         }
 
-        System.out.println("\n===== SAVED CREDENTIALS =====");
+        System.out.println("\n========== SAVED CREDENTIALS ==========");
+
+        int index = 1;
 
         for (Credential credential : credentials) {
+
+            System.out.println("Credential #" + index++);
             System.out.println(credential);
+
         }
     }
 
-    // Search credential by website
     public Credential searchCredential(String website) {
 
         for (Credential credential : credentials) {
@@ -43,64 +50,52 @@ public class PasswordManager {
         return null;
     }
 
-    // Update password
     public boolean updatePassword(String website, String newPassword) {
 
         Credential credential = searchCredential(website);
 
-        if (credential != null) {
-            credential.setPassword(newPassword);
-            return true;
+        if (credential == null) {
+            return false;
         }
 
-        return false;
+        credential.setPassword(newPassword);
+        return true;
     }
 
-    // Update username
     public boolean updateUsername(String website, String newUsername) {
 
         Credential credential = searchCredential(website);
 
-        if (credential != null) {
-            credential.setUsername(newUsername);
-            return true;
+        if (credential == null) {
+            return false;
         }
 
-        return false;
+        credential.setUsername(newUsername);
+        return true;
     }
 
-    // Delete credential
     public boolean deleteCredential(String website) {
 
         Credential credential = searchCredential(website);
 
-        if (credential != null) {
-            credentials.remove(credential);
-            return true;
+        if (credential == null) {
+            return false;
         }
 
-        return false;
+        credentials.remove(credential);
+        return true;
     }
 
-    // Check if website already exists
     public boolean credentialExists(String website) {
-
         return searchCredential(website) != null;
-
     }
 
-    // Total credentials
     public int getTotalCredentials() {
-
         return credentials.size();
-
     }
 
-    // Return all credentials
     public ArrayList<Credential> getCredentials() {
-
         return credentials;
-
     }
 
 }
