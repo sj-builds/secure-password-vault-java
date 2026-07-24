@@ -1,22 +1,28 @@
 package service;
-import java.util.ArrayList;
 
 import model.Credential;
+import storage.FileManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PasswordManager {
 
-    private ArrayList<Credential> credentials;
+    private final List<Credential> credentials;
 
     public PasswordManager() {
         credentials = new ArrayList<>();
+        FileManager.loadCredentials(this);
     }
 
     public void addCredential(Credential credential) {
+
         credentials.add(credential);
-        System.out.println("\nCredential added successfully!");
+        FileManager.saveCredentials(credentials);
+
+        System.out.println("\nCredential added successfully.");
     }
 
-    // Used while loading from file
     public void addCredentialSilently(Credential credential) {
         credentials.add(credential);
     }
@@ -24,19 +30,13 @@ public class PasswordManager {
     public void viewCredentials() {
 
         if (credentials.isEmpty()) {
+
             System.out.println("\nNo credentials found.");
             return;
         }
 
-        System.out.println("\n========== SAVED CREDENTIALS ==========");
-
-        int index = 1;
-
         for (Credential credential : credentials) {
-
-            System.out.println("Credential #" + index++);
             System.out.println(credential);
-
         }
     }
 
@@ -47,22 +47,9 @@ public class PasswordManager {
             if (credential.getWebsite().equalsIgnoreCase(website)) {
                 return credential;
             }
-
         }
 
         return null;
-    }
-
-    public boolean updatePassword(String website, String newPassword) {
-
-        Credential credential = searchCredential(website);
-
-        if (credential == null) {
-            return false;
-        }
-
-        credential.setPassword(newPassword);
-        return true;
     }
 
     public boolean updateUsername(String website, String newUsername) {
@@ -74,6 +61,22 @@ public class PasswordManager {
         }
 
         credential.setUsername(newUsername);
+        FileManager.saveCredentials(credentials);
+
+        return true;
+    }
+
+    public boolean updatePassword(String website, String newPassword) {
+
+        Credential credential = searchCredential(website);
+
+        if (credential == null) {
+            return false;
+        }
+
+        credential.setPassword(newPassword);
+        FileManager.saveCredentials(credentials);
+
         return true;
     }
 
@@ -86,19 +89,61 @@ public class PasswordManager {
         }
 
         credentials.remove(credential);
+        FileManager.saveCredentials(credentials);
+
         return true;
     }
 
     public boolean credentialExists(String website) {
+
         return searchCredential(website) != null;
+    }
+
+    public List<Credential> getCredentials() {
+        return credentials;
     }
 
     public int getTotalCredentials() {
         return credentials.size();
     }
 
-    public ArrayList<Credential> getCredentials() {
-        return credentials;
+    public int getWeakPasswordCount() {
+
+        int count = 0;
+
+        for (Credential credential : credentials) {
+
+            String strength = security.PasswordStrength.checkStrength(
+                    credential.getPassword()
+            );
+
+            if (!strength.equals("Strong") &&
+                !strength.equals("Very Strong")) {
+
+                count++;
+            }
+        }
+
+        return count;
     }
 
+    public int getStrongPasswordCount() {
+
+        int count = 0;
+
+        for (Credential credential : credentials) {
+
+            String strength = security.PasswordStrength.checkStrength(
+                    credential.getPassword()
+            );
+
+            if (strength.equals("Strong") ||
+                strength.equals("Very Strong")) {
+
+                count++;
+            }
+        }
+
+        return count;
+    }
 }

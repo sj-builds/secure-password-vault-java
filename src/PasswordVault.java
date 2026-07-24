@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 import model.Credential;
+import service.PasswordManager;
+import storage.FileManager;
 
 public class PasswordVault {
 
