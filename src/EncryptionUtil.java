@@ -1,26 +1,11 @@
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.util.Base64;
 
 public class EncryptionUtil {
 
-    private static SecretKey secretKey;
-
-    static {
-
-        try {
-
-            KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-            keyGenerator.init(256);
-            secretKey = keyGenerator.generateKey();
-
-        } catch (Exception e) {
-
-            throw new RuntimeException("Failed to initialize encryption.", e);
-
-        }
-    }
+    private static final SecretKey secretKey =
+        KeyManager.getSecretKey();
 
     public static String encrypt(String plainText) {
 
