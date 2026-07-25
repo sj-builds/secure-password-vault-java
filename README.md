@@ -5,131 +5,104 @@
 <h1 align="center">🔐 Secure Password Vault</h1>
 
 <p align="center">
-A modern <strong>Java & JavaFX</strong> desktop password manager built with
-<strong>AES encryption</strong>, <strong>clean architecture</strong>, and
-<strong>security-first design</strong>.
+A secure, lightweight password manager built in <strong>Java</strong> that encrypts credentials before storing them locally using <strong>AES encryption</strong> and <strong>JSON persistence</strong>.
 </p>
 
 <p align="center">
 
 ![Java](https://img.shields.io/badge/Java-17+-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![JavaFX](https://img.shields.io/badge/JavaFX-Desktop-blue?style=for-the-badge)
-![AES](https://img.shields.io/badge/AES-256-success?style=for-the-badge)
+![AES](https://img.shields.io/badge/AES-Encryption-blue?style=for-the-badge)
 ![JSON](https://img.shields.io/badge/JSON-Storage-orange?style=for-the-badge)
 ![MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 </p>
 
 <p align="center">
-<img src="https://skillicons.dev/icons?i=java,git,github,vscode" />
+  <img src="https://skillicons.dev/icons?i=java,git,github,vscode" />
+</p>
+
+<p align="center">
+
+📄 <a href=".github/assets/presentation/Secure%20Password%20Vault.pdf">Presentation</a>
+•
+⭐ <a href="https://github.com/sj-builds/secure-password-vault-java">Repository</a>
+•
+📜 <a href="LICENSE">License</a>
+
 </p>
 
 ---
 
 ## ✨ Overview
 
-**Secure Password Vault** is a lightweight desktop application that securely stores and manages passwords using **AES encryption**. Built with **Java** and **JavaFX**, the project demonstrates modern software engineering practices including layered architecture, object-oriented design, modular development, and secure credential management.
-
-This project was created to showcase practical Java development beyond traditional CRUD applications.
+Secure Password Vault is a console-based password manager developed in Java to demonstrate secure software engineering practices. The application encrypts passwords before storing them locally, helping users manage credentials safely while showcasing object-oriented programming, modular architecture, and file handling.
 
 ---
 
 ## 🚀 Features
 
-| Feature | Description |
-|---------|-------------|
-| 🔐 AES Encryption | Passwords are encrypted before storage |
-| 🔑 Password Generator | Generates secure passwords using `SecureRandom` |
-| 💪 Strength Analyzer | Evaluates password complexity |
-| 📊 Dashboard | View password statistics and security overview |
-| 🔎 Search | Quickly find stored credentials |
-| 📋 Clipboard Support | Copy usernames and passwords |
-| 👁 Password Visibility | Reveal or hide passwords securely |
-| 💾 Local Storage | Encrypted JSON persistence |
-| 🏗 Clean Architecture | Modular and maintainable codebase |
+- 🔐 AES Encryption
+- 🔑 Secure Password Generator
+- 💪 Password Strength Analyzer
+- 🔍 Search Credentials
+- ✏️ Update Username & Password
+- 🗑 Delete Credentials
+- 💾 Encrypted JSON Storage
+- 📊 Dashboard Statistics
+- 🏗 Modular Architecture
 
 ---
 
 ## 📸 Application Preview
 
-### Login
+| Dashboard | Add Credential |
+|-----------|----------------|
+| ![](.github/assets/screenshots/dashboard.png) | ![](.github/assets/screenshots/add-credential.png) |
 
-![](.github/assets/login.png)
-
-### Dashboard
-
-![](.github/assets/dashboard.png)
-
-### Credential Manager
-
-![](.github/assets/credentials.png)
-
-### Password Generator
-
-![](.github/assets/generator.png)
+| Search Credential | Password Generator |
+|-------------------|--------------------|
+| ![](.github/assets/screenshots/search-credential.png) | ![](.github/assets/screenshots/password-generator.png) |
 
 ---
 
-## 🏛 Architecture
+## 🛠 Tech Stack
 
-```mermaid
-flowchart TD
-
-A[JavaFX Desktop]
---> B[Password Manager]
-
-B --> C[Encryption Engine]
-B --> D[Password Generator]
-B --> E[Strength Analyzer]
-B --> F[Storage Layer]
-
-F --> G[(Encrypted JSON)]
-```
+| Category | Technology |
+|----------|------------|
+| Language | Java |
+| Security | AES Encryption |
+| Storage | JSON |
+| Libraries | Jackson |
+| IDE | VS Code |
+| Version Control | Git & GitHub |
 
 ---
 
 ## 📂 Project Structure
 
 ```text
-SecurePasswordVault
-│
-├── src
-│   ├── model
-│   ├── security
-│   ├── service
-│   ├── storage
-│   └── ui
-│
-├── data
-├── lib
-├── .github
-└── README.md
+src/
+├── model/
+├── security/
+├── service/
+├── storage/
+└── ui/
+
+data/
+lib/
+.github/
+README.md
 ```
 
 ---
 
-## 🔒 Security
+## 🔒 Security Highlights
 
-- AES encrypted password storage
-- SecureRandom password generation
-- Password masking
-- Local key management
-- Encrypted JSON persistence
-- Security-first application design
-
----
-
-## ⚙ Tech Stack
-
-| Category | Technology |
-|----------|------------|
-| Language | Java 17 |
-| UI | JavaFX |
-| Security | AES |
-| Storage | JSON |
-| Library | Jackson |
-| IDE | IntelliJ IDEA / VS Code |
-| Version Control | Git & GitHub |
+- Encrypts passwords before storage
+- Secure password generation using `SecureRandom`
+- Password strength evaluation
+- Local encrypted JSON persistence
+- Modular and maintainable architecture
 
 ---
 
@@ -150,80 +123,45 @@ javac -cp "lib/*" -d out src/**/*.java
 
 Run
 
-### Windows
-
 ```bash
 java -cp "out;lib/*" ui.PasswordVault
 ```
 
-### Linux / macOS
+---
 
-```bash
-java -cp "out:lib/*" ui.PasswordVault
-```
+## 🔮 Roadmap
+
+- JavaFX Desktop Interface
+- Master Password Authentication
+- AES-GCM Encryption
+- Database Integration
+- Cross-platform Installer
 
 ---
 
-## 🎯 What This Project Demonstrates
+## 📊 Repository Stats
 
-- Object-Oriented Programming
-- Clean Architecture
-- JavaFX Desktop Development
-- AES Encryption
-- Secure Credential Management
-- File Handling
-- JSON Serialization
-- Exception Handling
-- Modular Design
-- Software Engineering Best Practices
-
----
-
-## 🤝 Contributing
-
-Contributions, suggestions, and bug reports are always welcome.
-
-If you'd like to improve the project:
-
-1. Fork the repository
-2. Create a new branch
-3. Commit your changes
-4. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**.
-
-See the [LICENSE](LICENSE) file for more information.
+- **Language:** Java
+- **Architecture:** Layered / Modular
+- **Storage:** JSON
+- **Encryption:** AES
+- **Project Type:** Console Application
 
 ---
 
 ## 👨‍💻 Author
 
-### Shreyansh Jain
+**Shreyansh Jain**
 
-**BCA Student • Software Engineer • AI • Cybersecurity**
+Software Engineering • AI • Cybersecurity
 
-<p>
-
-<a href="https://github.com/sj-builds">
-<img src="https://img.shields.io/badge/GitHub-sj--builds-181717?style=for-the-badge&logo=github">
-</a>
-
-<a href="https://linkedin.com/in/shreyanshjain-tech">
-<img src="https://img.shields.io/badge/LinkedIn-Shreyansh%20Jain-0A66C2?style=for-the-badge&logo=linkedin">
-</a>
-
-</p>
+- GitHub: https://github.com/sj-builds
+- LinkedIn: https://linkedin.com/in/shreyanshjain-tech
 
 ---
 
 <p align="center">
 
-### ⭐ If you found this project helpful, consider giving it a star!
-
-**Built with ❤️ using Java, JavaFX, and secure software engineering principles.**
+⭐ If you like this project, consider giving it a star!
 
 </p>
